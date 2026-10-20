@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ituna Secondary School | Kasama, Northern Province, Zambia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0b2545',
+                            dark: '#13315c',
+                            yellow: '#f4b41a',
+                            gold: '#d99b00',
+                            accent: '#134074'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .motto-font { font-family: 'Playfair Display', serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(11, 37, 69, 0.65), rgba(11, 37, 69, 0.75)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Top Utility Header -->
+    <div class="bg-brand-navy text-white text-xs sm:text-sm py-2 px-4 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex flex-wrap items-center space-x-4 sm:space-x-6">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-yellow"></i> Kasama, Northern Province, Zambia</span>
+                <span class="hidden md:inline-flex items-center gap-1.5"><i class="fa-solid fa-envelope text-brand-yellow"></i> ituna@school.zm</span>
+                <span class="hidden sm:inline-flex items-center gap-1.5"><i class="fa-solid fa-phone text-brand-yellow"></i> +260 212 221 005</span>
+            </div>
+            <div class="flex items-center space-x-4 ml-auto">
+                <span class="motto-font italic text-brand-yellow text-sm font-semibold tracking-wide hidden sm:inline">The Fountain of Knowledge</span>
+                <button onclick="toggleSearch()" class="bg-brand-yellow hover:bg-yellow-400 text-brand-navy px-2.5 py-1 rounded font-bold transition">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <!-- Crest & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="w-14 h-14 bg-brand-navy rounded-full border-2 border-brand-yellow flex items-center justify-center text-white font-bold text-2xl shadow-md flex-shrink-0 relative">
+                    <i class="fa-solid fa-graduation-cap text-brand-yellow"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-brand-navy tracking-tight leading-none uppercase">ITUNA SECONDARY SCHOOL</h1>
+                    <p class="text-xs font-semibold text-slate-500 tracking-wider mt-1">KASAMA | NORTHERN PROVINCE | ZAMBIA</p>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-1 font-semibold text-sm">
+                <button id="nav-home" onclick="navigateTo('home')" class="px-3 py-2 text-brand-navy border-b-2 border-brand-yellow bg-slate-100 rounded-t">Home</button>
+                <button id="nav-about" onclick="navigateTo('about')" class="px-3 py-2 text-slate-600 hover:text-brand-navy transition">About Us <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></button>
+                <button id="nav-academics" onclick="navigateTo('academics')" class="px-3 py-2 text-slate-600 hover:text-brand-navy transition">Academics <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></button>
+                <button id="nav-verification" onclick="openExternalVerification()" class="px-3 py-2 text-amber-700 font-bold hover:text-amber-800 transition">Grade 12 Verification</button>
+                <button id="nav-results" onclick="openExternalHome()" class="px-3 py-2 text-blue-700 font-bold hover:text-blue-800 transition">Check Results</button>
+                <button id="nav-gallery" onclick="navigateTo('gallery')" class="px-3 py-2 text-slate-600 hover:text-brand-navy transition">Gallery</button>
+                <button id="nav-contact" onclick="navigateTo('contact')" class="px-3 py-2 text-slate-600 hover:text-brand-navy transition">Contact</button>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="lg:hidden flex items-center">
+                <button onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 text-xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar Dropdown -->
+        <div id="search-bar" class="hidden bg-slate-100 border-t border-slate-200 p-4">
+            <div class="max-w-3xl mx-auto flex gap-2">
+                <input type="text" placeholder="Search courses, announcements, verification details..." class="flex-grow px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                <button onclick="toggleSearch()" class="bg-brand-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-brand-dark transition">Search</button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-200 px-4 py-3 space-y-2">
+            <button onclick="navigateTo('home')" class="block w-full text-left py-2 font-semibold text-brand-navy">Home</button>
+            <button onclick="navigateTo('about')" class="block w-full text-left py-2 text-slate-600 hover:text-brand-navy">About Us</button>
+            <button onclick="navigateTo('academics')" class="block w-full text-left py-2 text-slate-600 hover:text-brand-navy">Academics</button>
+            <button onclick="openExternalVerification()" class="block w-full text-left py-2 font-bold text-amber-700 hover:text-amber-800">Grade 12 Verification</button>
+            <button onclick="openExternalHome()" class="block w-full text-left py-2 font-bold text-blue-700 hover:text-blue-800">Check Results</button>
+            <button onclick="navigateTo('gallery')" class="block w-full text-left py-2 text-slate-600 hover:text-brand-navy">Gallery</button>
+            <button onclick="navigateTo('contact')" class="block w-full text-left py-2 text-slate-600 hover:text-brand-navy">Contact Us</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <div id="page-home" class="page-view">
+            <!-- Hero Carousel / Slider Section -->
+            <section class="hero-bg text-white py-20 px-4 sm:px-8 relative">
+                <div class="max-w-7xl mx-auto min-h-[320px] flex flex-col justify-center">
+                    <span class="text-brand-yellow font-bold uppercase tracking-widest text-sm mb-2 block">WELCOME TO</span>
+                    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight">ITUNA SECONDARY SCHOOL</h2>
+                    <p class="text-lg sm:text-xl text-slate-200 max-w-2xl mb-8 leading-relaxed">
+                        Nurturing disciplined, knowledgeable and responsible citizens for a brighter future in Kasama and beyond.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="navigateTo('about')" class="bg-brand-yellow hover:bg-yellow-400 text-brand-navy font-bold px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="openExternalVerification()" class="bg-brand-navy hover:bg-brand-dark border-2 border-brand-yellow text-white font-bold px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-shield-halved"></i> Verify Grade 12
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slider Indicators -->
+                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-brand-yellow inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-white/50 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-white/50 inline-block"></span>
+                </div>
+            </section>
+
+            <!-- Quick Action Icons Bar -->
+            <section class="bg-white border-b border-slate-200 shadow-sm py-6">
+                <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                    <div onclick="navigateTo('about')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Our School</h4>
+                            <p class="text-xs text-slate-500">History & Mission</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigateTo('academics')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Academics</h4>
+                            <p class="text-xs text-slate-500">Subjects & Curriculum</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openExternalVerification()" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Admissions</h4>
+                            <p class="text-xs text-slate-500">Verify Grade 12</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigateTo('about')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Calendar</h4>
+                            <p class="text-xs text-slate-500">Term Dates & Events</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigateTo('gallery')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Gallery</h4>
+                            <p class="text-xs text-slate-500">Photos & Videos</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigateTo('contact')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Contact Us</h4>
+                            <p class="text-xs text-slate-500">Get in Touch</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Area: About, News & Quick Links -->
+            <section class="max-w-7xl mx-auto px-4 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Left Section: About snippet (5 cols) -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="border-l-4 border-brand-yellow pl-4">
+                            <h3 class="text-2xl font-bold text-brand-navy">About Ituna Secondary School</h3>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Ituna Secondary School was founded in 1933 and has been a centre of excellence in education for over 92 years. We are committed to providing quality and inclusive education that develops the whole person — academically, morally, socially and practically.
+                        </p>
+                        <div class="rounded-xl overflow-hidden shadow-md border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop" alt="Ituna School Front" class="w-full h-48 object-cover">
+                        </div>
+                        <button onclick="navigateTo('about')" class="bg-brand-navy text-white hover:bg-brand-dark px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2">
+                            Read More About Us <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Middle Section: Latest News (4 cols) -->
+                    <div class="lg:col-span-4 space-y-4">
+                        <div class="border-l-4 border-brand-yellow pl-4">
+                            <h3 class="text-2xl font-bold text-brand-navy">Latest News</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- News Item 1 -->
+                            <div class="flex gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
+                                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=200&auto=format&fit=crop" alt="Open Day" class="w-20 h-20 rounded-lg object-cover flex-shrink-0">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 font-semibold block">18 Oct 2026</span>
+                                    <h4 class="font-bold text-xs text-slate-800 hover:text-brand-navy transition cursor-pointer" onclick="navigateTo('about')">Grade 12 Open Day at Kasama Girls – A Success</h4>
+                                    <span class="text-xs text-brand-navy font-semibold hover:underline cursor-pointer mt-1 inline-block" onclick="navigateTo('about')">Read More →</span>
+                                </div>
+                            </div>
+
+                            <!-- News Item 2 -->
+                            <div class="flex gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
+                                <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=200&auto=format&fit=crop" alt="Water Tank Donation" class="w-20 h-20 rounded-lg object-cover flex-shrink-0">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 font-semibold block">14 Oct 2026</span>
+                                    <h4 class="font-bold text-xs text-slate-800 hover:text-brand-navy transition cursor-pointer" onclick="navigateTo('about')">Alumni Donates 5,000L Water Tank to Ituna Secondary</h4>
+                                    <span class="text-xs text-brand-navy font-semibold hover:underline cursor-pointer mt-1 inline-block" onclick="navigateTo('about')">Read More →</span>
+                                </div>
+                            </div>
+
+                            <!-- News Item 3 -->
+                            <div class="flex gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
+                                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=200&auto=format&fit=crop" alt="Graduation" class="w-20 h-20 rounded-lg object-cover flex-shrink-0">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 font-semibold block">23 Oct 2026</span>
+                                    <h4 class="font-bold text-xs text-slate-800 hover:text-brand-navy transition cursor-pointer" onclick="navigateTo('about')">Grade 12 Graduation Ceremony – 278 Learners</h4>
+                                    <span class="text-xs text-brand-navy font-semibold hover:underline cursor-pointer mt-1 inline-block" onclick="navigateTo('about')">Read More →</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Quick Links Side Column (3 cols) -->
+                    <div class="lg:col-span-3 bg-amber-50/80 rounded-2xl p-5 border border-amber-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-link text-brand-yellow"></i> Quick Links
+                            </h3>
+
+                            <div class="space-y-2">
+                                <button onclick="openExternalHome()" class="w-full text-left bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-desktop text-brand-navy"></i> School Portal</span>
+                                    <i class="fa-solid fa-chevron-right text-slate-400 text-[10px]"></i>
+                                </button>
+
+                                <button onclick="openExternalHome()" class="w-full text-left bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-file-lines text-emerald-600"></i> Online Results</span>
+                                    <i class="fa-solid fa-chevron-right text-slate-400 text-[10px]"></i>
+                                </button>
+
+                                <button onclick="openExternalVerification()" class="w-full text-left bg-white hover:bg-amber-100/50 p-3 rounded-xl border border-amber-300 text-xs font-bold text-amber-900 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-shield-check text-amber-600"></i> Grade 12 Verification</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-amber-600 text-[10px]"></i>
+                                </button>
+
+                                <button onclick="openExternalVerification()" class="w-full text-left bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-mobile-screen text-indigo-600"></i> School SMS Results</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 text-[10px]"></i>
+                                </button>
+
+                                <button onclick="navigateTo('about')" class="w-full text-left bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-users text-blue-600"></i> Alumni Association</span>
+                                    <i class="fa-solid fa-chevron-right text-slate-400 text-[10px]"></i>
+                                </button>
+
+                                <button onclick="navigateTo('academics')" class="w-full text-left bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-between shadow-sm transition">
+                                    <span class="flex items-center gap-2.5"><i class="fa-solid fa-download text-teal-600"></i> Downloads & Syllabi</span>
+                                    <i class="fa-solid fa-chevron-right text-slate-400 text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-amber-200 text-center">
+                            <span class="text-xs font-medium text-slate-500">Need direct assistance?</span>
+                            <button onclick="navigateTo('contact')" class="mt-2 w-full bg-brand-yellow hover:bg-yellow-400 text-brand-navy font-bold py-2 rounded-lg text-xs transition">
+                                <i class="fa-solid fa-comment-dots mr-1"></i> Send Us Feedback
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 2: GRADE 12 VERIFICATION DETAILS ================= -->
+        <div id="page-verification" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto">
+            <!-- Header Banner -->
+            <div class="bg-brand-navy text-white rounded-2xl p-8 mb-8 shadow-md relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-brand-yellow text-brand-navy font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Official Portal</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 mb-2">Grade 12 Verification Details</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mb-6">
+                        Verify Grade 12 ECZ examination statement of results, student credentials, and completion certificates directly through Ituna Secondary School records.
+                    </p>
+                    <button onclick="openExternalVerification()" class="bg-brand-yellow hover:bg-yellow-400 text-brand-navy font-extrabold text-sm px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Verification Site
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Verification Form -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-brand-navy mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-brand-yellow"></i> Immediate Candidate Lookup
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Enter candidate details as they appear on the Examination Council of Zambia (ECZ) admission slip.
+                    </p>
+
+                    <form onsubmit="handleVerificationSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Exam Examination Year</label>
+                            <select id="ver-year" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                                <option>2025 Grade 12 ECZ</option>
+                                <option>2024 Grade 12 ECZ</option>
+                                <option>2023 Grade 12 ECZ</option>
+                                <option>2022 Grade 12 ECZ</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Exam Center Code</label>
+                            <input type="text" value="3012 - ITUNA SECONDARY SCHOOL" readonly class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 text-sm font-semibold">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Candidate Examination Number (10 Digits)</label>
+                            <input type="text" id="ver-num" placeholder="e.g. 2430120042" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Full Candidate Name</label>
+                            <input type="text" id="ver-name" placeholder="First and Surname" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-navy hover:bg-brand-dark text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass"></i> Verify Candidate Details
+                        </button>
+                    </form>
+
+                    <!-- Verification Output Result Box -->
+                    <div id="ver-result" class="hidden mt-6 p-5 rounded-xl border border-emerald-300 bg-emerald-50/80">
+                        <div class="flex items-center justify-between pb-3 border-b border-emerald-200">
+                            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> Record Verified
+                            </span>
+                            <span class="text-[11px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded font-bold">ECZ Validated</span>
+                        </div>
+                        <div class="mt-3 text-xs space-y-1.5 text-slate-700">
+                            <p><strong>Candidate Name:</strong> <span id="res-name" class="font-semibold text-slate-900"></span></p>
+                            <p><strong>Exam Number:</strong> <span id="res-num" class="font-semibold text-slate-900"></span></p>
+                            <p><strong>School:</strong> Ituna Secondary School (3012)</p>
+                            <p><strong>Status:</strong> Full Grade 12 Certificate Awarded (Pass)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guidelines Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-brand-navy text-base mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-brand-yellow"></i> Verification Guidelines
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-3 list-disc pl-4">
+                            <li>All Grade 12 examination results are endorsed by the Examination Council of Zambia (ECZ).</li>
+                            <li>Organizations or tertiary institutions requiring official sealed transcripts can apply in person at the administration office in Kasama.</li>
+                            <li>For online certificate authenticity, ensure the candidate number matches the official 10-digit format.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-brand-navy to-brand-dark text-white p-6 rounded-2xl shadow-sm">
+                        <h4 class="font-bold text-lg mb-2">Official Verification Portal</h4>
+                        <p class="text-xs text-slate-300 mb-4">Click below to proceed directly to the official verification portal.</p>
+                        <button onclick="openExternalVerification()" class="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-navy font-bold py-2.5 rounded-lg text-xs transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-external-link"></i> Go To Verification Portal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 3: RESULT CHECK PORTAL ================= -->
+        <div id="page-results" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto">
+            <!-- Banner -->
+            <div class="bg-slate-900 text-white rounded-2xl p-8 mb-8 shadow-md relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-blue-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Learner Portal</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 mb-2">Check Examination Results</h2>
+                    <p class="text-slate-300 text-sm sm:text-base">
+                        Access termly end-of-term marks and final national Grade 9 & Grade 12 Examination Council of Zambia results.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Check Form -->
+                <div class="lg:col-span-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-brand-navy mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-brand-yellow"></i> Online Marksheet Portal
+                    </h3>
+
+                    <form onsubmit="handleResultCheck(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Academic Year</label>
+                                <select class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                                    <option>2026 Academic Year</option>
+                                    <option>2025 Academic Year</option>
+                                    <option>2024 Academic Year</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Examination Type</label>
+                                <select class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                                    <option>Grade 12 National ECZ Exam</option>
+                                    <option>Grade 9 Junior Secondary ECZ</option>
+                                    <option>Term 1 / Term 2 Mock Exams</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Exam Index / Identification Number</label>
+                            <input type="text" id="result-id" placeholder="Enter Exam Number or Student ID" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-navy focus:outline-none">
+                        </div>
+
+                        <button type="submit" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg text-sm shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-invoice"></i> Fetch Result Statement
+                        </button>
+                    </form>
+
+                    <!-- Mock Result Display Card -->
+                    <div id="result-display" class="hidden mt-6 p-6 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
+                            <div>
+                                <h4 class="font-bold text-brand-navy text-base">Statement of Results</h4>
+                                <p class="text-xs text-slate-500">Ituna Secondary School • Kasama</p>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded font-bold">STATUS: PASSED</span>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between py-1.5 border-b border-slate-200">
+                                <span class="font-semibold text-slate-600">English Language</span>
+                                <span class="font-bold text-slate-800">Distinction (One)</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-200">
+                                <span class="font-semibold text-slate-600">Mathematics</span>
+                                <span class="font-bold text-slate-800">Merit (Three)</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-200">
+                                <span class="font-semibold text-slate-600">Biology</span>
+                                <span class="font-bold text-slate-800">Merit (Four)</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-200">
+                                <span class="font-semibold text-slate-600">Physical Science</span>
+                                <span class="font-bold text-slate-800">Credit (Five)</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-200">
+                                <span class="font-semibold text-slate-600">Civic Education</span>
+                                <span class="font-bold text-slate-800">Distinction (Two)</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 text-center">
+                            <button onclick="window.print()" class="bg-slate-800 text-white text-xs px-4 py-2 rounded font-semibold hover:bg-slate-700 transition">
+                                <i class="fa-solid fa-print mr-1"></i> Print Statement
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMS & External Option -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                        <h4 class="font-bold text-amber-900 text-base mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-mobile-retro text-amber-600"></i> SMS Result Check
+                        </h4>
+                        <p class="text-xs text-amber-800 mb-4 leading-relaxed">
+                            To check results via ECZ SMS Service on Airtel, MTN or Zamtel:
+                        </p>
+                        <div class="bg-white p-3 rounded-lg text-xs font-mono border border-amber-300 text-slate-800 mb-3">
+                            Format: <code>ECZ [ExamNo] [Year] [G12]</code><br>
+                            Send to: <strong>8008</strong>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">Main Official Portal Site</h4>
+                        <p class="text-xs text-slate-500 mb-4">Access the main Google Site homepage directly.</p>
+                        <button onclick="openExternalHome()" class="w-full bg-brand-navy hover:bg-brand-dark text-white font-bold py-2.5 rounded-lg text-xs transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-house"></i> Open Main Google Site Home
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 4: ABOUT US ================= -->
+        <div id="page-about" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-8">
+            <div class="border-l-4 border-brand-yellow pl-4">
+                <h2 class="text-3xl font-extrabold text-brand-navy">About Ituna Secondary School</h2>
+                <p class="text-slate-500 text-sm">Founded in 1933 in Kasama, Northern Province, Zambia</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
+                    <p>
+                        Ituna Secondary School has established itself as an institution of high educational standards, dedicated to shaping young minds for academic success and practical life skills.
+                    </p>
+                    <p>
+                        Located in Kasama, Northern Province, the school caters to both junior and senior secondary school students under the Ministry of General Education standards in Zambia.
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-xl border-l-4 border-brand-navy">
+                        <h4 class="font-bold text-brand-navy mb-1">Motto</h4>
+                        <p class="motto-font italic text-brand-navy text-lg">"The Fountain of Knowledge"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-brand-navy text-lg">Core Objectives</h3>
+                    <ul class="space-y-2 text-xs text-slate-600">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Provide holistic secondary education.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Maintain top pass rates in ECZ Grade 9 and Grade 12 examinations.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Foster discipline, leadership, and community service values.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 5: ACADEMICS ================= -->
+        <div id="page-academics" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-8">
+            <div class="border-l-4 border-brand-yellow pl-4">
+                <h2 class="text-3xl font-extrabold text-brand-navy">Academic Programs</h2>
+                <p class="text-slate-500 text-sm">Curriculum & Subject Departments</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-brand-navy text-lg mb-2">Sciences</h3>
+                    <p class="text-xs text-slate-600 mb-3">Biology, Chemistry, Physics, Agricultural Science, and Mathematics.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-brand-navy text-lg mb-2">Humanities</h3>
+                    <p class="text-xs text-slate-600 mb-3">History, Geography, Religious Education, and Civic Education.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-brand-navy text-lg mb-2">Languages & Practical</h3>
+                    <p class="text-xs text-slate-600 mb-3">English Language, Literature, Icibemba, Computer Studies, and Home Economics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 6: GALLERY ================= -->
+        <div id="page-gallery" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-6">
+            <div class="border-l-4 border-brand-yellow pl-4">
+                <h2 class="text-3xl font-extrabold text-brand-navy">School Photo Gallery</h2>
+                <p class="text-slate-500 text-sm">Life and events at Ituna Secondary School</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" class="w-full h-48 object-cover rounded-xl shadow-sm hover:opacity-90 transition">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop" class="w-full h-48 object-cover rounded-xl shadow-sm hover:opacity-90 transition">
+                <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=600&auto=format&fit=crop" class="w-full h-48 object-cover rounded-xl shadow-sm hover:opacity-90 transition">
+            </div>
+        </div>
+
+        <!-- ================= PAGE 7: CONTACT ================= -->
+        <div id="page-contact" class="page-view hidden py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-8">
+            <div class="border-l-4 border-brand-yellow pl-4">
+                <h2 class="text-3xl font-extrabold text-brand-navy">Contact Administration</h2>
+                <p class="text-slate-500 text-sm">Get in touch with Ituna Secondary School in Kasama</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 text-xs">
+                    <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-brand-yellow text-lg"></i> Kasama District, Northern Province, Zambia</p>
+                    <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-brand-yellow text-lg"></i> +260 212 221 005</p>
+                    <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-brand-yellow text-lg"></i> ituna@school.zm</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <form onsubmit="alert('Message sent successfully!'); return false;" class="space-y-3">
+                        <input type="text" placeholder="Your Name" required class="w-full px-3 py-2 rounded border border-slate-300 text-xs">
+                        <input type="email" placeholder="Email / Phone" required class="w-full px-3 py-2 rounded border border-slate-300 text-xs">
+                        <textarea placeholder="Your Message" rows="3" required class="w-full px-3 py-2 rounded border border-slate-300 text-xs"></textarea>
+                        <button type="submit" class="bg-brand-navy text-white font-bold px-4 py-2 rounded text-xs">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy text-white pt-10 pb-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 text-xs">
+            <div>
+                <h4 class="font-bold text-sm text-brand-yellow mb-3">ITUNA SECONDARY SCHOOL</h4>
+                <p class="text-slate-300 leading-relaxed mb-3">
+                    Kasama, Northern Province, Zambia. Committed to academic distinction and holistic learner development.
+                </p>
+                <p class="motto-font italic text-brand-yellow text-sm">The Fountain of Knowledge</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm text-brand-yellow mb-3">Target Google Sites Links</h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="https://sites.google.com/view/ituna-secondary-school/grade-12-verification-details" target="_blank" class="hover:underline flex items-center gap-1.5 text-amber-300 font-semibold">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Grade 12 Verification Site
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://sites.google.com/view/ituna-secondary-school/home" target="_blank" class="hover:underline flex items-center gap-1.5 text-blue-300 font-semibold">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Official Site Home
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm text-brand-yellow mb-3">Quick Navigation</h4>
+                <ul class="space-y-1.5 text-slate-300">
+                    <li onclick="navigateTo('home')" class="hover:text-white cursor-pointer">Home</li>
+                    <li onclick="navigateTo('verification')" class="hover:text-white cursor-pointer">Grade 12 Verification</li>
+                    <li onclick="navigateTo('results')" class="hover:text-white cursor-pointer">Check Results</li>
+                    <li onclick="navigateTo('academics')" class="hover:text-white cursor-pointer">Academics</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm text-brand-yellow mb-3">Follow & Connect</h4>
+                <div class="flex space-x-3 text-lg">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-yellow hover:text-brand-navy flex items-center justify-center transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-yellow hover:text-brand-navy flex items-center justify-center transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-yellow hover:text-brand-navy flex items-center justify-center transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-800 max-w-7xl mx-auto px-4 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-400">
+            <p>© 2026 Ituna Secondary School. All rights reserved.</p>
+            <p class="motto-font italic text-brand-yellow mt-1 sm:mt-0">The Fountain of Knowledge</p>
+        </div>
+    </footer>
+
+    <!-- Application Logic & Page Router Script -->
+    <script>
+        // Page Navigation Router
+        function navigateTo(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.add('hidden'));
+
+            // Show selected page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Search Bar
+        function toggleSearch() {
+            const bar = document.getElementById('search-bar');
+            bar.classList.toggle('hidden');
+        }
+
+        // Toggle Mobile Navigation Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Open target Grade 12 Verification Google Site page
+        function openExternalVerification() {
+            window.open('https://sites.google.com/view/ituna-secondary-school/grade-12-verification-details', '_blank');
+        }
+
+        // Open target Home Google Site page
+        function openExternalHome() {
+            window.open('https://sites.google.com/view/ituna-secondary-school/home', '_blank');
+        }
+
+        // Form handler for Candidate Verification Lookup
+        function handleVerificationSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('ver-name').value;
+            const num = document.getElementById('ver-num').value;
+
+            document.getElementById('res-name').innerText = name;
+            document.getElementById('res-num').innerText = num;
+            document.getElementById('ver-result').classList.remove('hidden');
+        }
+
+        // Form handler for Result Checking
+        function handleResultCheck(e) {
+            e.preventDefault();
+            document.getElementById('result-display').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
